@@ -19,6 +19,7 @@ use tracing::info;
 
 use pb::*;
 
+mod engine;
 mod pb;
 
 #[derive(Deserialize)]
@@ -58,7 +59,7 @@ async fn generate(
     Path(Params { spec, url }): Path<Params>,
     Extension(cache): Extension<Cache>,
 ) -> Result<(HeaderMap, Vec<u8>), StatusCode> {
-    let spec: ImageSpec = spec
+    let _spec: ImageSpec = spec
         .as_str()
         .try_into()
         .map_err(|_| StatusCode::BAD_REQUEST)?;
